@@ -73,18 +73,23 @@
             const inputScript = document.getElementById('inputScript').value;
             let desofuscatedScript = '';
 
+            console.log('Script de entrada:', inputScript);
+
             try {
                 // Tentar desofuscar usando base64
                 desofuscatedScript = desofuscarBase64(inputScript);
                 if (desofuscatedScript) {
+                    console.log('Desofuscado com sucesso usando base64');
                     document.getElementById('outputScript').textContent = desofuscatedScript;
                     return;
                 }
 
                 // Se não for base64, tentar desofuscar usando mapeamento de caracteres
                 desofuscatedScript = desofuscarJavaScriptObfuscator(inputScript);
+                console.log('Desofuscado com sucesso usando mapeamento de caracteres');
             } catch (error) {
                 desofuscatedScript = `Erro ao desofuscar o script: ${error.message}`;
+                console.error('Erro ao desofuscar o script:', error);
             }
 
             document.getElementById('outputScript').textContent = desofuscatedScript;
@@ -94,8 +99,10 @@
             try {
                 // Tentar decodificar base64
                 const decodedScript = atob(script);
+                console.log('Script decodificado de base64:', decodedScript);
                 return decodedScript;
             } catch (error) {
+                console.log('Script não é base64');
                 return null;
             }
         }
@@ -115,6 +122,7 @@
                 desofuscated += map[char] || char;
             }
 
+            console.log('Script desofuscado com mapeamento de caracteres:', desofuscated);
             return desofuscated;
         }
     </script>
