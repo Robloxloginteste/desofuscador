@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desofuscador de Script</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            text-align: center;
+        }
+        textarea {
+            width: 100%;
+            height: 200px;
+            margin-bottom: 20px;
+            padding: 10px;
+            font-size: 16px;
+            background-color: #1e1e1e;
+            color: #ffffff;
+            border: 1px solid #333;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .output {
+            margin-top: 20px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Desofuscador de Script</h1>
+        <textarea id="inputScript" placeholder="Cole o script obfuscado aqui..."></textarea>
+        <button onclick="desofuscarScript()">Desofuscar</button>
+        <div class="output" id="outputScript"></div>
+    </div>
+
+    <script>
+        function desofuscarScript() {
+            const inputScript = document.getElementById('inputScript').value;
+            let desofuscatedScript = '';
+
+            try {
+                // Exemplo de desofuscação para scripts obfuscados com MoonSec
+                desofuscatedScript = desofuscarMoonSec(inputScript);
+            } catch (error) {
+                desofuscatedScript = `Erro ao desofuscar o script: ${error.message}`;
+            }
+
+            document.getElementById('outputScript').textContent = desofuscatedScript;
+        }
+
+        function desofuscarMoonSec(script) {
+            // Lógica de desofuscação específica para MoonSec
+            // Aqui você pode adicionar a lógica específica para desofuscar scripts obfuscados com MoonSec
+            // Exemplo simples de desofuscação (substituir caracteres)
+            const map = {
+                'a': 'b',
+                'b': 'c',
+                'c': 'd',
+                // Adicione mais mapeamentos conforme necessário
+            };
+
+            let desofuscated = '';
+            for (let char of script) {
+                desofuscated += map[char] || char;
+            }
+
+            return desofuscated;
+        }
+    </script>
+</body>
+</html>
