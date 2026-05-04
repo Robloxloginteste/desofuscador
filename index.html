@@ -63,8 +63,8 @@
             let desofuscatedScript = '';
 
             try {
-                // Exemplo de desofuscação para scripts obfuscados com MoonSec
-                desofuscatedScript = desofuscarMoonSec(inputScript);
+                // Exemplo de desofuscação para scripts obfuscados com JavaScript Obfuscator
+                desofuscatedScript = desofuscarJavaScriptObfuscator(inputScript);
             } catch (error) {
                 desofuscatedScript = `Erro ao desofuscar o script: ${error.message}`;
             }
@@ -72,9 +72,9 @@
             document.getElementById('outputScript').textContent = desofuscatedScript;
         }
 
-        function desofuscarMoonSec(script) {
-            // Lógica de desofuscação específica para MoonSec
-            // Aqui você pode adicionar a lógica específica para desofuscar scripts obfuscados com MoonSec
+        function desofuscarJavaScriptObfuscator(script) {
+            // Lógica de desofuscação específica para JavaScript Obfuscator
+            // Aqui você pode adicionar a lógica específica para desofuscar scripts obfuscados com JavaScript Obfuscator
             // Exemplo simples de desofuscação (substituir caracteres)
             const map = {
                 'a': 'b',
