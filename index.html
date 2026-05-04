@@ -63,7 +63,7 @@
 <body>
     <div class="container">
         <h1>Desofuscador de Script</h1>
-        <p>Este desofuscador suporta apenas scripts obfuscados por Wearedevs, MoonSec, Lua Obfuscator e Obfuscator.</p>
+        <p>Este desofuscador tenta desofuscar qualquer script obfuscado.</p>
         <textarea id="inputScript" placeholder="Cole o script obfuscado aqui..."></textarea>
         <button onclick="desofuscarScript()">Desofuscar</button>
         <div class="output" id="outputScript"></div>
@@ -77,18 +77,23 @@
             console.log('Script de entrada:', inputScript);
 
             try {
-                // Identificar o tipo de obfuscação
-                if (inputScript.includes('Wearedevs')) {
-                    desofuscatedScript = desofuscarWearedevs(inputScript);
-                } else if (inputScript.includes('MoonSec')) {
-                    desofuscatedScript = desofuscarMoonSec(inputScript);
-                } else if (inputScript.includes('Lua Obfuscator')) {
-                    desofuscatedScript = desofuscarLuaObfuscator(inputScript);
-                } else if (inputScript.includes('Obfuscator')) {
-                    desofuscatedScript = desofuscarObfuscator(inputScript);
-                } else {
-                    desofuscatedScript = 'O script não pertence a nenhum dos tipos suportados (Wearedevs, MoonSec, Lua Obfuscator, Obfuscator).';
+                // Tentar desofuscar usando base64
+                desofuscatedScript = desofuscarBase64(inputScript);
+                if (desofuscatedScript) {
+                    console.log('Desofuscado com sucesso usando base64');
+                    document.getElementById('outputScript').textContent = desofuscatedScript;
+                    return;
                 }
+
+                // Tentar desofuscar usando mapeamento de caracteres
+                desofuscatedScript = desofuscarCaracteres(inputScript);
+                if (desofuscatedScript) {
+                    console.log('Desofuscado com sucesso usando mapeamento de caracteres');
+                    document.getElementById('outputScript').textContent = desofuscatedScript;
+                    return;
+                }
+
+                desofuscatedScript = 'O script não foi desofuscado com sucesso.';
             } catch (error) {
                 desofuscatedScript = `Erro ao desofuscar o script: ${error.message}`;
                 console.error('Erro ao desofuscar o script:', error);
@@ -97,28 +102,20 @@
             document.getElementById('outputScript').textContent = desofuscatedScript;
         }
 
-        function desofuscarWearedevs(script) {
-            // Lógica de desofuscação específica para Wearedevs
-            // Exemplo simples de desofuscação (substituir caracteres)
-            const map = {
-                'a': 'b',
-                'b': 'c',
-                'c': 'd',
-                // Adicione mais mapeamentos conforme necessário
-            };
-
-            let desofuscated = '';
-            for (let char of script) {
-                desofuscated += map[char] || char;
+        function desofuscarBase64(script) {
+            try {
+                // Tentar decodificar base64
+                const decodedScript = atob(script);
+                console.log('Script decodificado de base64:', decodedScript);
+                return decodedScript;
+            } catch (error) {
+                console.log('Script não é base64');
+                return null;
             }
-
-            console.log('Script desofuscado com mapeamento de caracteres para Wearedevs:', desofuscated);
-            return desofuscated;
         }
 
-        function desofuscarMoonSec(script) {
-            // Lógica de desofuscação específica para MoonSec
-            // Exemplo simples de desofuscação (substituir caracteres)
+        function desofuscarCaracteres(script) {
+            // Lógica de desofuscação genérica (substituir caracteres)
             const map = {
                 'a': 'b',
                 'b': 'c',
@@ -131,45 +128,7 @@
                 desofuscated += map[char] || char;
             }
 
-            console.log('Script desofuscado com mapeamento de caracteres para MoonSec:', desofuscated);
-            return desofuscated;
-        }
-
-        function desofuscarLuaObfuscator(script) {
-            // Lógica de desofuscação específica para Lua Obfuscator
-            // Exemplo simples de desofuscação (substituir caracteres)
-            const map = {
-                'a': 'b',
-                'b': 'c',
-                'c': 'd',
-                // Adicione mais mapeamentos conforme necessário
-            };
-
-            let desofuscated = '';
-            for (let char of script) {
-                desofuscated += map[char] || char;
-            }
-
-            console.log('Script desofuscado com mapeamento de caracteres para Lua Obfuscator:', desofuscated);
-            return desofuscated;
-        }
-
-        function desofuscarObfuscator(script) {
-            // Lógica de desofuscação específica para Obfuscator
-            // Exemplo simples de desofuscação (substituir caracteres)
-            const map = {
-                'a': 'b',
-                'b': 'c',
-                'c': 'd',
-                // Adicione mais mapeamentos conforme necessário
-            };
-
-            let desofuscated = '';
-            for (let char of script) {
-                desofuscated += map[char] || char;
-            }
-
-            console.log('Script desofuscado com mapeamento de caracteres para Obfuscator:', desofuscated);
+            console.log('Script desofuscado com mapeamento de caracteres:', desofuscated);
             return desofuscated;
         }
     </script>
