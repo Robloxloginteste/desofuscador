@@ -76,17 +76,16 @@
             console.log('Script de entrada:', inputScript);
 
             try {
-                // Tentar desofuscar usando base64
-                desofuscatedScript = desofuscarBase64(inputScript);
-                if (desofuscatedScript) {
-                    console.log('Desofuscado com sucesso usando base64');
-                    document.getElementById('outputScript').textContent = desofuscatedScript;
-                    return;
+                // Identificar o tipo de obfuscação
+                if (inputScript.includes('Wearedevs')) {
+                    desofuscatedScript = desofuscarWearedevs(inputScript);
+                } else if (inputScript.includes('MoonSec')) {
+                    desofuscatedScript = desofuscarMoonSec(inputScript);
+                } else if (inputScript.includes('Obfuscator')) {
+                    desofuscatedScript = desofuscarObfuscator(inputScript);
+                } else {
+                    desofuscatedScript = 'O script não pertence a nenhum dos tipos suportados (Wearedevs, MoonSec, Obfuscator).';
                 }
-
-                // Se não for base64, tentar desofuscar usando mapeamento de caracteres
-                desofuscatedScript = desofuscarJavaScriptObfuscator(inputScript);
-                console.log('Desofuscado com sucesso usando mapeamento de caracteres');
             } catch (error) {
                 desofuscatedScript = `Erro ao desofuscar o script: ${error.message}`;
                 console.error('Erro ao desofuscar o script:', error);
@@ -95,20 +94,8 @@
             document.getElementById('outputScript').textContent = desofuscatedScript;
         }
 
-        function desofuscarBase64(script) {
-            try {
-                // Tentar decodificar base64
-                const decodedScript = atob(script);
-                console.log('Script decodificado de base64:', decodedScript);
-                return decodedScript;
-            } catch (error) {
-                console.log('Script não é base64');
-                return null;
-            }
-        }
-
-        function desofuscarJavaScriptObfuscator(script) {
-            // Lógica de desofuscação específica para JavaScript Obfuscator
+        function desofuscarWearedevs(script) {
+            // Lógica de desofuscação específica para Wearedevs
             // Exemplo simples de desofuscação (substituir caracteres)
             const map = {
                 'a': 'b',
@@ -122,7 +109,45 @@
                 desofuscated += map[char] || char;
             }
 
-            console.log('Script desofuscado com mapeamento de caracteres:', desofuscated);
+            console.log('Script desofuscado com mapeamento de caracteres para Wearedevs:', desofuscated);
+            return desofuscated;
+        }
+
+        function desofuscarMoonSec(script) {
+            // Lógica de desofuscação específica para MoonSec
+            // Exemplo simples de desofuscação (substituir caracteres)
+            const map = {
+                'a': 'b',
+                'b': 'c',
+                'c': 'd',
+                // Adicione mais mapeamentos conforme necessário
+            };
+
+            let desofuscated = '';
+            for (let char of script) {
+                desofuscated += map[char] || char;
+            }
+
+            console.log('Script desofuscado com mapeamento de caracteres para MoonSec:', desofuscated);
+            return desofuscated;
+        }
+
+        function desofuscarObfuscator(script) {
+            // Lógica de desofuscação específica para Obfuscator
+            // Exemplo simples de desofuscação (substituir caracteres)
+            const map = {
+                'a': 'b',
+                'b': 'c',
+                'c': 'd',
+                // Adicione mais mapeamentos conforme necessário
+            };
+
+            let desofuscated = '';
+            for (let char of script) {
+                desofuscated += map[char] || char;
+            }
+
+            console.log('Script desofuscado com mapeamento de caracteres para Obfuscator:', desofuscated);
             return desofuscated;
         }
     </script>
