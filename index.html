@@ -74,7 +74,14 @@
             let desofuscatedScript = '';
 
             try {
-                // Exemplo de desofuscação para scripts obfuscados com JavaScript Obfuscator
+                // Tentar desofuscar usando base64
+                desofuscatedScript = desofuscarBase64(inputScript);
+                if (desofuscatedScript) {
+                    document.getElementById('outputScript').textContent = desofuscatedScript;
+                    return;
+                }
+
+                // Se não for base64, tentar desofuscar usando mapeamento de caracteres
                 desofuscatedScript = desofuscarJavaScriptObfuscator(inputScript);
             } catch (error) {
                 desofuscatedScript = `Erro ao desofuscar o script: ${error.message}`;
@@ -83,9 +90,18 @@
             document.getElementById('outputScript').textContent = desofuscatedScript;
         }
 
+        function desofuscarBase64(script) {
+            try {
+                // Tentar decodificar base64
+                const decodedScript = atob(script);
+                return decodedScript;
+            } catch (error) {
+                return null;
+            }
+        }
+
         function desofuscarJavaScriptObfuscator(script) {
             // Lógica de desofuscação específica para JavaScript Obfuscator
-            // Aqui você pode adicionar a lógica específica para desofuscar scripts obfuscados com JavaScript Obfuscator
             // Exemplo simples de desofuscação (substituir caracteres)
             const map = {
                 'a': 'b',
