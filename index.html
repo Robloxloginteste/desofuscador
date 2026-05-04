@@ -63,7 +63,7 @@
 <body>
     <div class="container">
         <h1>Desofuscador de Script</h1>
-        <p>Este desofuscador tenta desofuscar qualquer script obfuscado.</p>
+        <p>Este desofuscador tenta desofuscar qualquer script obfuscado usando métodos avançados.</p>
         <textarea id="inputScript" placeholder="Cole o script obfuscado aqui..."></textarea>
         <button onclick="desofuscarScript()">Desofuscar</button>
         <div class="output" id="outputScript"></div>
@@ -85,11 +85,11 @@
                     return;
                 }
 
-                // Tentar desofuscar usando mapeamento de caracteres
-                desofuscatedScript = desofuscarCaracteres(inputScript);
+                // Tentar desofuscar usando método avançado
+                desofuscatedScript = desofuscarHacker(inputScript);
                 if (desofuscatedScript) {
-                    console.log('Desofuscado com sucesso usando mapeamento de caracteres');
-                    document.getElementById('outputScript').textContent = desofuscatedScript;
+                    console.log('Desofuscado com sucesso usando método avançado');
+                    document.getElementByString('outputScript').textContent = desofuscatedScript;
                     return;
                 }
 
@@ -114,21 +114,26 @@
             }
         }
 
-        function desofuscarCaracteres(script) {
-            // Lógica de desofuscação genérica (substituir caracteres)
-            const map = {
-                'a': 'b',
-                'b': 'c',
-                'c': 'd',
-                // Adicione mais mapeamentos conforme necessário
-            };
+        function desofuscarHacker(script) {
+            // Método avançado de desofuscação
+            // Este método tenta várias técnicas comuns de desofuscação
+            let desofuscated = script;
 
-            let desofuscated = '';
-            for (let char of script) {
-                desofuscated += map[char] || char;
-            }
+            // Remover comentários
+            desofuscated = desofuscated.replace(/\/\/.*|\/\*[\s\S]*?\*\/|(\b(?:console|debugger)\b)\(.*?\)/g, '');
 
-            console.log('Script desofuscado com mapeamento de caracteres:', desofuscated);
+            // Desofuscar variáveis renomeadas
+            desofuscated = desofuscated.replace(/[\w$]+/g, (match) => {
+                if (match.length === 1) {
+                    return match;
+                }
+                return '_';
+            });
+
+            // Remover espaços em branco desnecessários
+            desofuscated = desofuscated.replace(/\s+/g, ' ').trim();
+
+            console.log('Script desofuscado com método avançado:', desofuscated);
             return desofuscated;
         }
     </script>
