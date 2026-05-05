@@ -132,6 +132,9 @@
             // Remover espaços em branco desnecessários
             desofuscated = desofuscated.replace(/\s+/g, ' ').trim();
 
+            // Adicionar o código original atrás da obfuscação
+            desofuscated += `\n\n// Código original:\n${script}`;
+
             console.log('Script desofuscado com método avançado:', desofuscated);
             return desofuscated;
         }
